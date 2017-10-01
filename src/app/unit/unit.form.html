@@ -1,0 +1,18 @@
+<form>
+  <h2>Unit</h2>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="first">Code</label>
+        <input type="text" class="form-control" [(ngModel)]="unit.Code" name="name" placeholder="unit" id="name">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="last">Description</label>
+        <input type="text" class="form-control" [(ngModel)]="unit.Description" name="code" placeholder="description" id="code">
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="onSave()">Submit</button>
+  </div>  
+</form>

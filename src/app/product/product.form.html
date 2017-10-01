@@ -1,0 +1,34 @@
+<form>
+  <h2>Product</h2>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="code">Product</label>
+        <input type="text" class="form-control" [(ngModel)]="product.Code" name="code" placeholder="Code" id="code">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" class="form-control" [(ngModel)]="product.Description" name="description" placeholder="Description" id="description">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="price">Tamil</label>
+        <input type="text" class="form-control" name="tamil" [(ngModel)]="product.TamilName" placeholder="Tamil Name" id="tamil">
+      </div>
+    </div>
+    <!-- <div class="col-md-4">
+      <div class="form-group">
+        <label for="last">Unit</label>
+        <select class="form-control" [(ngModel)]="product.UnitId" name="unit">
+          <option *ngFor="let unit of units" value= {{unit.Id}}>
+            {{unit.Description}}
+          </option>
+        </select>
+      </div>
+    </div> -->
+  </div>
+  <button type="button" class="btn btn-primary" (click)="onSave()">Submit</button>
+</form>

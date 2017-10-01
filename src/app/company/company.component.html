@@ -1,0 +1,43 @@
+<h2>Company</h2>
+<div class="container">
+  <div class="row">    
+    <input class='btn' type='button' value='Add' (click)="AddCompany()" />
+    <input class='btn' type='button' value='Cancel' (click)="OnCancel()" [disabled]="(!isAdd && !isEdit)" />
+    <company-form-view *ngIf="isAdd||isEdit" [(company)]="company" (onSavedEvent)="onSavedEvent($event)"></company-form-view>
+    <input type="text" class="form-control" [(ngModel)]="companySearchText" placeholder="search company"/>
+
+    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Mobile</th>
+          <th>Phone</th>
+          <th>Aadhar</th>
+          <th>Tin</th>
+          <th>Gst</th>
+          <th>Address</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+      </tfoot>
+      <tbody>
+        <tr *ngFor="let company of companies | filterBy: { Name: companySearchText}">
+          <td>{{company.Id}}</td>
+          <td>{{company.Name}}</td>
+          <td>{{company.Mobile}}</td>
+          <td>{{company.Phone}}</td>
+          <td>{{company.AadharNumber}}</td>
+          <td>{{company.TinNumber}}</td>
+          <td>{{company.GstNumber}}</td>
+          <td>{{company.Address}}</td>
+          <td>
+            <input class='btn' type='button' (click)="onEdit(company)" value='Edit' />
+            <input class='btn' type='button' (click)="onDelete(company)" value='Delete' />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

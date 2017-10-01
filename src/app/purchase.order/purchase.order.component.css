@@ -1,0 +1,36 @@
+.form-group{
+    margin-bottom: 4px;
+  }
+  .table {
+    margin-bottom: 0;
+  }
+
+  .table .header {
+    height: auto;
+  }
+
+  .remove-icon-padding {
+    padding-right: 4%;
+  }
+
+  .item-index {
+    width: 8% !important;
+  }
+  .item-product {
+    width: 20% !important;
+  }
+  .total-summary{
+    padding-top: 1%;
+  }
+  .billing-form{
+    padding-bottom: 0;
+    margin-bottom:4px;
+  }
+
+  :host /deep/ .data-table-row {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <input class='btn' type='button' value='Add' (click)="AddUnit()" />
+      <input class='btn' type='button' value='Cancel' (click)="OnCancel()" [disabled]="(!isAdd && !isEdit)" />
+      <unit-form-view *ngIf="isAdd||isEdit" [(unit)]="unit" (onSavedEvent)="onSavedEvent($event)"></unit-form-view>
+    <input type="text" class="form-control" [(ngModel)]="unitSearchText" placeholder="search unit"
+    />
+    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Unit</th>
+          <th>Description</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+      </tfoot>
+      <tbody>
+        <tr *ngFor="let unit of units | filterBy: { Code: unitSearchText}" #row>
+          <td>{{unit.Id}}</td>
+          <td>{{unit.Code}}</td>
+          <td>{{unit.Description}}</td>
+          <td>
+            <input class='btn' type='button' (click)="onEdit(unit)" value='Edit' />
+            <input class='btn' type='button' (click)="onDelete(unit)" value='Delete' />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

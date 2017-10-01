@@ -1,0 +1,206 @@
+<div class="container">
+  <div class="col-md-6">
+    <div class="form-group col-md-3">
+      <input class="btn btn-default" [disabled]="billInfo.SalesOrders?.length==0" (click)="saveBill()" type="button" name="button" value="Save"
+      />
+    </div>
+    <div class="form-group col-md-3">
+      <input class="btn btn-default" [disabled]="billInfo.SalesOrders?.length==0" (click)="SaveAndprintBill()" type="button" name="button" value="Print & Save"
+      />
+    </div>
+    <div class="form-group col-md-3">
+      <input class="btn btn-default" [disabled]="billInfo.SalesOrders?.length==0" (click)="cancelBill()" type="button" name="button" value="Cancel" />
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div name="form">
+              <div class="row text-center">
+                <span style="font-size:18;"><strong>MITHUN STORES</strong></span><br/> R.C MATHA KOVIL OPP<br/> ALANGULAM
+                - 627851
+              </div>
+              <div class="table-responsive">
+                <table class="table table-condensed">
+                  <tbody class="header">
+                    <tr>
+                      <td>GST No:</td>
+                      <td>33BRYPR9136C1ZA</td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Phone No:</td>
+                      <td>9842072602</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>Date:</td>
+                        <td>{{billInfo.Date| date:'medium'}}</td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+              <form class="well span8 billing-form" role="form" #f="ngForm" name="form">
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <input class="form-control" placeholder="Name" type="text" name="name" [(ngModel)]="billInfo.CompanyName">
+                    <input class="form-control" placeholder="Mobile" type="text" name="mobile" maxlength="10" [(ngModel)]="billInfo.Mobile">
+                    <input class="form-control" placeholder="Phone" type="text" name="phone" [(ngModel)]="billInfo.Phone">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <input class="form-control" placeholder="Aadhar" type="text" name="aadhar" [(ngModel)]="billInfo.Aadhar">
+                    <input class="form-control" placeholder="Pan" type="text" name="pan" [(ngModel)]="billInfo.PanNumber">
+                    <input class="form-control" placeholder="GST NO" type="text" name="gstNo" [(ngModel)]="billInfo.GstNumber">
+                  </div>
+                  <div class="form-group col-md-4">
+                    <textarea class="form-control" rows="3" placeholder="Address" name="address" [(ngModel)]="billInfo.Address"></textarea>
+                    <input class="form-control" placeholder="TIN NO" type="text" name="tinNo" [(ngModel)]="billInfo.TinNumber">
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <text-search (selectedItems)="selectedItems($event)"></text-search>
+            </div>
+            <div class="form-group col-md-3">
+              <input class="form-control" placeholder="Price" type="text" name="Price" [(ngModel)]="salesOrder.PerUnitPrice">
+            </div>
+            <div class="form-group col-md-3">
+              <input class="form-control" [focus]="myFocusTriggeringEventEmitter" placeholder="Quantity" type="text" name="Quantity" [(ngModel)]="salesOrder.Quantity">
+            </div>
+            <div class="form-group col-md-3">
+              <select (ngModelChange)="onUnitChange($event)" class="form-control" [(ngModel)]="salesOrder.UnitId" name="unit" placeholder="Unit">
+                  <option *ngFor="let purchaseOrder of purchaseOrders" value= {{purchaseOrder.Unit.Id}}>
+                    {{purchaseOrder.Unit.Description}}
+                  </option>
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+              <input class="btn btn-default" (click)="addItemToBill()"  [disabled]="!salesOrder?.ProductId" type="button" name="button" value="Add" />
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table table-condensed">
+              <tbody class="header">
+                <tr>
+                  <td class="item-index"><strong>No.</strong></td>
+                  <td class="item-product"><strong>Product</strong></td>
+                  <td class="text-center item-data"><strong>Price</strong></td>
+                  <td class="text-center item-data"><strong>Quantity</strong></td>
+                  <td class="text-center item-data"><strong>GST(%)</strong></td>
+                  <td class="text-center item-data"><strong>CGST(&#8377;)</strong></td>
+                  <td class="text-center item-data"><strong>SGST(&#8377;)</strong></td>
+                  <td class="text-right"><strong>Taxable(&#8377;)</strong></td>
+                  <td class="text-right"><strong>Amount(&#8377;)</strong></td>
+                  <td class="text-center remove-icon"><strong>&#9986;</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <table class="table table-condensed">
+              <tbody #scrollMe>
+                <tr *ngFor="let item of billInfo.SalesOrders; let index = index;">
+                  <td class="item-index">{{index+1}}</td>
+                  <td class="item-product">{{item.ProductDescription}}</td>
+                  <td class="text-center item-data"  [style.color]="(item.PerUnitPrice<item.ActualPrice) ? 'red' : 'black'">
+                    {{item.PerUnitPrice}}
+                  </td>
+                  <td class="text-center item-data">{{item.Quantity +' '+ item.Unit.Code}}</td>
+                  <td class="text-center item-data">{{item.Cgst+item.Sgst}}</td>
+                  <td class="text-center item-data">{{item.CgstAmount}}</td>
+                  <td class="text-center item-data">{{item.SgstAmount}}</td>
+                  <td class="text-right">{{item.TaxableAmout}}</td>
+                  <td class="text-right">{{item.Amount}}</td>
+                  <td class="text-center remove-icon"><i class="fa fa-trash" (click)="removeBillItem(item)">&#9986;</i></td>
+                </tr>
+                <tr>
+                  <td class="item-index"></td>
+                  <td class="item-product"></td>
+                  <td class="text-center item-data"></td>
+                  <td class="text-center item-data"></td>
+                  <td class="text-center item-data"></td>
+                  <td class="text-center item-data"></td>
+                  <td class="text-center item-data"></td>
+                  <td class="text-right">Gross:</td>
+                  <td class="text-right">&#8377;{{totalWithOutTax}}</td>
+                  <td class="text-center remove-icon"></td>
+                </tr>
+                <tr>
+                  <td class="item-index">GST%</td>
+                  <td class="item-product">CGST%</td>
+                  <td class="text-center item-data">CGST Value</td>
+                  <td class="text-center item-data">CGST TAX</td>
+                  <td class="text-center item-data">SGST%</td>
+                  <td class="text-center item-data">SGST Value</td>
+                  <td class="text-center item-data">SGST TAX</td>
+                  <td class="text-right">CGST</td>
+                  <td class="text-right">{{totalCgst}}</td>
+                  <td class="text-center remove-icon"></td>
+                </tr>
+                <tr>
+                  <td class="item-index">5%</td>
+                  <td class="item-product">2.5%</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(twoHalfCgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(twoHalfCgstTax)}}</td>
+                  <td class="text-center item-data">2.5%</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(twoHalfSgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(twoHalfSgstTax)}}</td>
+                  <td class="text-right">SGST</td>
+                  <td class="text-right">{{totalSgst}}</td>
+                  <td class="text-center remove-icon"></td>
+                </tr>
+                <tr>
+                  <td class="item-index">12%</td>
+                  <td class="item-product">6%</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(sixCgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(sixCgstTax)}}</td>
+                  <td class="text-center item-data">6%</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(sixSgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(sixSgstTax)}}</td>
+                  <td class="text-right">Total</td>
+                  <td class="text-right">{{calculatorService.currencyRoundOff(totalWithOutTax+totalCgst+totalSgst)}}</td>
+                  <td class="text-center remove-icon"></td>
+                </tr>
+                <tr>
+                  <td class="item-index">18%</td>
+                  <td class="item-product">9%</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(nineCgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(nineCgstTax)}}</td>
+                  <td class="text-center item-data">9%</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(nineSgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(nineSgstTax)}}</td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-center remove-icon"></td>
+                </tr>
+                <tr>
+                  <td class="item-index">28%</td>
+                  <td class="item-product">14%</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(fourteenCgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(fourteenCgstTax)}}</td>
+                  <td class="text-center item-data">14%</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(fourteenSgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(fourteenSgstTax)}}</td>
+                  <td class="text-right"></td>
+                  <td class="text-right"></td>
+                  <td class="text-center remove-icon"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

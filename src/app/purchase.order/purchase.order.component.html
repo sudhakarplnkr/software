@@ -1,0 +1,75 @@
+<div class="container">
+  <h2>Purchase Order</h2>
+    <!-- <input class='btn' type='button' value='Refresh' (click)="refreshPurchaseOrder()" /> -->
+    <div class="row">
+    <input class='btn' type='button' value='Add' (click)="addPurchaseOrder()" />
+    <input class='btn' type='button' value='Cancel' (click)="onCancel()" [disabled]="!isAdd && !isEdit" />
+    <purchase-order-form-view *ngIf="isAdd||isEdit" [(purchaseOrder)]="purchaseOrder" (onSavedEvent)="onSavedEvent($event)"></purchase-order-form-view>
+    <input type="text" class="form-control" [(ngModel)]="purchaseOrderSearchText" (keyup)="onPurchaseOrderSearch()" placeholder="search purchaseOrder"
+    />
+    <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Product</th>
+          <th>Company</th>
+          <th>PerUnitPrice</th>
+          <th>SalesPrice</th>
+          <th>ReSalesPrice</th>
+          <th>CurrentStock</th>
+          <th>Unit</th>
+          <th>C GST</th>
+          <th>S GST</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tfoot>
+      </tfoot>
+      <tbody>
+        <tr *ngFor="let purchaseOrder of currentPageItems">
+          <td>{{purchaseOrder.Id}}</td>
+          <td>{{purchaseOrder.Product.Description}}</td>
+          <td>{{purchaseOrder.Company.Name}}</td>
+          <td>{{purchaseOrder.PerUnitPrice}}</td>
+          <td>{{purchaseOrder.SalesPrice}}</td>
+          <td>{{purchaseOrder.ReSalesPrice}}</td>
+          <td>{{purchaseOrder.CurrentStock}}</td>
+          <td>{{purchaseOrder.Unit.Code}}</td>
+          <td>{{purchaseOrder.Sgst}}%</td>
+          <td>{{purchaseOrder.Cgst}}%</td>
+          <td>
+            <input class='btn' type='button' (click)="onEdit(purchaseOrder)" value='Edit' />
+            <input class='btn' type='button' (click)="onDelete(purchaseOrder)" value='Delete' />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="row col-md-12" *ngIf="totalPageNumber?.length>1">
+      <div class="col-md-5">
+        <div>Showing {{((currentPageNumber-1)*pageSize)+1}} to {{currentPageNumber*pageSize>=purchaseOrders.length?purchaseOrders.length:currentPageNumber*pageSize}}
+          of {{purchaseOrders.length}} entries</div>
+      </div>
+      <div class="col-md-7">
+        <div>
+          <ul class="pagination">
+            <li class="first" [ngClass]="{'disabled': currentPageNumber===1}" (click)="onPageChange(1)">
+              <a href="javascript:void(0);">First</a>
+            </li>
+            <li class="previous" [ngClass]="{'disabled': currentPageNumber===1}" (click)="onPageChange(currentPageNumber-1)">
+              <a href="javascript:void(0);">Previous</a>
+            </li>
+            <li *ngFor="let number of totalPageNumber" [ngClass]="{'active': currentPageNumber===number}" (click)="onPageChange(number)">
+              <a href="javascript:void(0);">{{number}}</a>
+            </li>
+            <li class="next" [ngClass]="{'disabled': currentPageNumber===totalPageNumber?.length}" (click)="onPageChange(currentPageNumber+1)">
+              <a href="javascript:void(0);">Next</a>
+            </li>
+            <li class="last" [ngClass]="{'disabled': currentPageNumber===totalPageNumber?.length}" (click)="onPageChange(totalPageNumber?.length)">
+              <a href="javascript:void(0);">Last</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

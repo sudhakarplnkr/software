@@ -1,0 +1,55 @@
+table {
+    width: 100%;
+    border-spacing: 0;
+    font-size: 14;
+  }
+
+  thead,
+  tbody,
+  tr,
+  th,
+  td {
+    display: block;
+  }
+
+  thead tr {
+    /* fallback */
+    width: 97%;
+    /* minus scroll bar width */
+    width: -webkit-calc(100% - 16px);
+    width: -moz-calc(100% - 16px);
+    width: calc(100% - 16px);
+  }
+
+  tr:after {
+    /* clearing float */
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+  }
+
+  .table tbody {
+    height: 420px;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .table tbody td,
+  .table thead th {
+    width: 12%;
+    /* 19% is less than (100% / 5 cols) = 20% */
+    float: left;
+  }
+  .active a{
+    padding-bottom: 18%;
+  }
+
+  tfoot{
+    display: table-footer-group;
+    vertical-align: middle;
+    border-color: inherit;
+  }
+  .customer-info td{
+    border-top:0;
+  }

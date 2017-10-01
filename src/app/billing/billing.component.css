@@ -1,0 +1,40 @@
+.form-group{
+    margin-bottom: 4px;
+  }
+  .table {
+    margin-bottom: 0;
+  }
+
+  .table .header {
+    height: auto;
+  }
+  .table td {
+    font-size: 12px;
+  }
+  .remove-icon-padding {
+    padding-right: 4%;
+  }
+
+  .item-index {
+    width: 5% !important;
+  }
+  .item-data {
+    width: 9% !important;
+  }
+  .item-product {
+    width: 13% !important;
+  }
+  .total-summary{
+    padding-top: 1%;
+  }
+  .billing-form{
+    padding-bottom: 0;
+    margin-bottom:4px;
+  }
+  .remove-icon{
+    width:7% !important;
+  }
+
+  .aadhar-info {
+    width: 10% !important;
+  }
