@@ -1,0 +1,42 @@
+<div *ngIf="!hideGrid">
+  <h2>Bill History</h2>
+  <div class="container">
+    <div class="row">
+      <input type="text" class="form-control" [(ngModel)]="billSearchText" placeholder="search bill" />
+      <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Customer</th>
+            <th>Mobile</th>
+            <th>Phone</th>
+            <th>Aadhar</th>
+            <th>Tin</th>
+            <th>Gst</th>
+            <th>Address</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tfoot>
+        </tfoot>
+        <tbody>
+          <tr *ngFor="let bill of billInfo | filterBy: { CompanyName: billSearchText}">
+            <td>{{bill.Id}}</td>
+            <td>{{bill.CompanyName}}</td>
+            <td>{{bill.Mobile}}</td>
+            <td>{{bill.Phone}}</td>
+            <td>{{bill.AadharNumber}}</td>
+            <td>{{bill.TinNumber}}</td>
+            <td>{{bill.GstNumber}}</td>
+            <td>{{bill.Address}}</td>
+            <td>
+              <input class='btn' type='button' (click)="onView(bill)" value='View' />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <input type="button" class="btn" value="Preview" (click)="hideGrid=true"/>
+</div>
+<bill-view *ngIf="billDetails?.Id" [billInfo]="billDetails"></bill-view>

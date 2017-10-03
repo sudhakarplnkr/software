@@ -45,20 +45,21 @@
                         <td></td>
                         <td></td>
                         <td>Date:</td>
-                        <td>{{billInfo.Date| date:'medium'}}</td>
+                        <td>{{currentDate |async | date:'d/M/yy hh:mm:ss' }}</td>
                       </tr>
                   </tbody>
                 </table>
               </div>
               <form class="well span8 billing-form" role="form" #f="ngForm" name="form">
+                <div>Balance: <input class="form-control" placeholder="balance" type="text" name="balance" [(ngModel)]="billInfo.Balance"></div>
                 <div class="row">
                   <div class="form-group col-md-4">
                     <input class="form-control" placeholder="Name" type="text" name="name" [(ngModel)]="billInfo.CompanyName">
-                    <input class="form-control" placeholder="Mobile" type="text" name="mobile" maxlength="10" [(ngModel)]="billInfo.Mobile">
+                    <input class="form-control" placeholder="Mobile" (blur)="searchCustomer()" type="text" name="mobile" maxlength="10" [(ngModel)]="billInfo.Mobile">
                     <input class="form-control" placeholder="Phone" type="text" name="phone" [(ngModel)]="billInfo.Phone">
                   </div>
                   <div class="form-group col-md-4">
-                    <input class="form-control" placeholder="Aadhar" type="text" name="aadhar" [(ngModel)]="billInfo.Aadhar">
+                    <input class="form-control" placeholder="Aadhar" maxlength="12" type="text" name="aadhar" [(ngModel)]="billInfo.Aadhar">
                     <input class="form-control" placeholder="Pan" type="text" name="pan" [(ngModel)]="billInfo.PanNumber">
                     <input class="form-control" placeholder="GST NO" type="text" name="gstNo" [(ngModel)]="billInfo.GstNumber">
                   </div>
@@ -133,7 +134,7 @@
                   <td class="text-center item-data"></td>
                   <td class="text-center item-data"></td>
                   <td class="text-right">Gross:</td>
-                  <td class="text-right">&#8377;{{totalWithOutTax}}</td>
+                  <td class="text-right">&#8377;{{totalViewModel.totalWithOutTax}}</td>
                   <td class="text-center remove-icon"></td>
                 </tr>
                 <tr>
@@ -145,41 +146,41 @@
                   <td class="text-center item-data">SGST Value</td>
                   <td class="text-center item-data">SGST TAX</td>
                   <td class="text-right">CGST</td>
-                  <td class="text-right">{{totalCgst}}</td>
+                  <td class="text-right">{{totalViewModel.totalCgst}}</td>
                   <td class="text-center remove-icon"></td>
                 </tr>
                 <tr>
                   <td class="item-index">5%</td>
                   <td class="item-product">2.5%</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(twoHalfCgstAmount)}}</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(twoHalfCgstTax)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.twoHalfCgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.twoHalfCgstTax)}}</td>
                   <td class="text-center item-data">2.5%</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(twoHalfSgstAmount)}}</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(twoHalfSgstTax)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.twoHalfSgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.twoHalfSgstTax)}}</td>
                   <td class="text-right">SGST</td>
-                  <td class="text-right">{{totalSgst}}</td>
+                  <td class="text-right">{{totalViewModel.totalSgst}}</td>
                   <td class="text-center remove-icon"></td>
                 </tr>
                 <tr>
                   <td class="item-index">12%</td>
                   <td class="item-product">6%</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(sixCgstAmount)}}</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(sixCgstTax)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.sixCgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.sixCgstTax)}}</td>
                   <td class="text-center item-data">6%</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(sixSgstAmount)}}</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(sixSgstTax)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.sixSgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.sixSgstTax)}}</td>
                   <td class="text-right">Total</td>
-                  <td class="text-right">{{calculatorService.currencyRoundOff(totalWithOutTax+totalCgst+totalSgst)}}</td>
+                  <td class="text-right">{{calculatorService.currencyRoundOff(totalViewModel.totalWithOutTax+totalViewModel.totalCgst+totalViewModel.totalSgst)}}</td>
                   <td class="text-center remove-icon"></td>
                 </tr>
                 <tr>
                   <td class="item-index">18%</td>
                   <td class="item-product">9%</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(nineCgstAmount)}}</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(nineCgstTax)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.nineCgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.nineCgstTax)}}</td>
                   <td class="text-center item-data">9%</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(nineSgstAmount)}}</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(nineSgstTax)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.nineSgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.nineSgstTax)}}</td>
                   <td class="text-right"></td>
                   <td class="text-right"></td>
                   <td class="text-center remove-icon"></td>
@@ -187,11 +188,11 @@
                 <tr>
                   <td class="item-index">28%</td>
                   <td class="item-product">14%</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(fourteenCgstAmount)}}</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(fourteenCgstTax)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.fourteenCgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.fourteenCgstTax)}}</td>
                   <td class="text-center item-data">14%</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(fourteenSgstAmount)}}</td>
-                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(fourteenSgstTax)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.fourteenSgstAmount)}}</td>
+                  <td class="text-center item-data">{{calculatorService.currencyRoundOff(totalViewModel.fourteenSgstTax)}}</td>
                   <td class="text-right"></td>
                   <td class="text-right"></td>
                   <td class="text-center remove-icon"></td>

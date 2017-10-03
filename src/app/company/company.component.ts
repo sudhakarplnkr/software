@@ -10,10 +10,11 @@ import { NotificationService } from '../utils/notification.service';
   templateUrl: 'company.component.html'
 })
 export class CompanyComponent {
+  companySearchText: string;
   company: ICompany = {} as ICompany;
   companies: ICompany[] = [];
   isAdd: boolean = false;
-  isEdit:boolean = false;
+  isEdit: boolean = false;
   constructor(
     public configService: ConfigService,
     private companyDataService: CompanyDataService,

@@ -16,7 +16,7 @@ export class ProductComponent {
   isAdd: boolean = false;
   isEdit: boolean = false;
   currentPageNumber: number = 1;
-  pageSize: number = 2;
+  pageSize: number = 10;
   totalPageNumber: number[];
   currentPageItems: IProduct[] = [];
   product: IProduct = {} as IProduct;
@@ -32,15 +32,16 @@ export class ProductComponent {
       this.product.Code = new Date().getTime().toString();
     }
   }
-  onSavedEvent(product: IProduct) {
+  onSavedEvent() {
     this.loadData();
+    this.OnCancel();
   }
   onEdit(product: IProduct) {
     this.isEdit = true;
     this.product = Object.assign({}, product);
   }
 
-  OnCancel(product: IProduct) {
+  OnCancel() {
     this.isEdit = false;
     this.isAdd = false;
     this.product = {} as IProduct;

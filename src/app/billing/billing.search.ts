@@ -16,7 +16,7 @@ export class SearchComponent implements OnChanges {
 
   @Output() selectedItems: EventEmitter<IProduct> = new EventEmitter();
 
-  private dataService: CompleterData;
+  public dataService: CompleterData;
 
   constructor(private completerService: CompleterService, private productDataService: ProductDataService,
     private notificationService: NotificationService) {
@@ -26,7 +26,7 @@ export class SearchComponent implements OnChanges {
       });
   }
 
-  protected onSelected(item: CompleterItem) {
+  onSelected(item: CompleterItem) {
     if (item === null) {
       return;
     }

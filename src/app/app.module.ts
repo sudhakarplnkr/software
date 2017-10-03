@@ -12,6 +12,8 @@ import { BillingComponent } from './billing/billing.component';
 import { CompanyComponent } from './company/company.component';
 import { ProductComponent } from './product/product.component';
 import { SearchComponent } from './billing/billing.search';
+import { BillHistoryComponent } from './billing/bill.history.component';
+import { BillViewComponent } from './billing/bill.view.component';
 
 // helper service
 import { ConfigService } from './utils/config.service';
@@ -34,6 +36,7 @@ import { ProductDataService } from './product/product.data.service';
 import { UnitDataService } from './unit/unit.data.service';
 import { CompanyDataService } from './company/company.data.service';
 import { PurchaseOrderDataService } from './purchase.order/purchase.order.data.service';
+import { BillInfoDataService } from './billing/billInfo.data.service';
 
 // routing
 import { RouterModule, Routes } from '@angular/router';
@@ -44,7 +47,8 @@ const appRoutes: Routes = [
   { path: 'PurchaseOrder', component: PurchaseOrderComponent },
   { path: 'Product', component: ProductComponent },
   { path: 'Unit', component: UnitComponent },
-  { path: 'Company', component: CompanyComponent }
+  { path: 'Company', component: CompanyComponent },
+  { path: 'BillHistory', component: BillHistoryComponent }
 ];
 
 @NgModule({
@@ -60,7 +64,9 @@ const appRoutes: Routes = [
     ProductFormComponent,
     UnitFormComponent,
     CompanyFormComponent,
-    PurchaseOrderFormComponent
+    PurchaseOrderFormComponent,
+    BillHistoryComponent,
+    BillViewComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -71,6 +77,7 @@ const appRoutes: Routes = [
   ],
   providers: [ProductDataService, ConfigService, NotificationService, CalculatorService, UnitDataService, CompanyDataService, 
     PurchaseOrderDataService,
+    BillInfoDataService,
     HelperService,
     ProductFactory],
   bootstrap: [AppComponent]

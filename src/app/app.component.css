@@ -12,6 +12,10 @@ table {
     display: block;
   }
 
+  .mandatory-field{
+    color: red !important;
+}
+
   thead tr {
     /* fallback */
     width: 97%;

@@ -10,10 +10,11 @@ import { NotificationService } from '../utils/notification.service';
   templateUrl: 'unit.component.html'
 })
 export class UnitComponent {
+  unitSearchText: string;
   unit: IUnit = {} as IUnit;
   units: IUnit[] = [];
   isAdd: boolean = false;
-  isEdit:boolean = false;
+  isEdit: boolean = false;
   constructor(public http: Http, public configService: ConfigService, private unitDataService: UnitDataService,
     private notificationService: NotificationService) {
     this.loadData();
@@ -43,10 +44,10 @@ export class UnitComponent {
 
   onDelete(unit: IUnit) {
     this.unitDataService.deleteUnit(unit.Id)
-    .subscribe(() => {
-      this.loadData();
-      this.notificationService.printSuccessMessage('unit deleted successfully.');;
-    });
+      .subscribe(() => {
+        this.loadData();
+        this.notificationService.printSuccessMessage('unit deleted successfully.');;
+      });
   }
 
   loadData() {

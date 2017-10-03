@@ -33,7 +33,7 @@ export class PurchaseOrderComponent {
     this.isAdd = true;
     this.purchaseOrder = {} as IPurchaseOrder;
   }
-  onSavedEvent(purchaseOrder: IPurchaseOrder) {
+  onSavedEvent() {
     this.purchaseOrder = {} as IPurchaseOrder;
     this.loadData();
   }
@@ -42,7 +42,7 @@ export class PurchaseOrderComponent {
     this.purchaseOrder = Object.assign({}, purchaseOrder);
   }
 
-  onCancel(purchaseOrder: IPurchaseOrder) {
+  onCancel() {
     this.isEdit = false;
     this.isAdd = false;
     this.purchaseOrder = {} as IPurchaseOrder;

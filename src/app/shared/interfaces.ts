@@ -17,12 +17,18 @@ export interface ICompany {
     Name: string;
     Phone: string;
     AadharNumber: number;
+    PanNumber: string;
     TinNumber: string;
     GstNumber: string;
+    Address: string;
+    Mobile: number;
+    Balance:number;
 }
 
 export interface IPurchaseOrder {
     Id: number;
+    CompanyId: number;
+    UnitId: number;
     ProductId: number;
     PerUnitPrice: number;
     SalesPrice: number;
@@ -45,7 +51,8 @@ export interface IBillInfo {
     Address: string;
     Mobile: number;
     Aadhar: number;
-    Pan: string;
+    Balance: number;
+    PanNumber: string;
     TinNumber: string;
     GstNumber: string;
     Phone: string;
@@ -58,8 +65,8 @@ export interface IBillInfo {
     NineSgst: number;
     FourteenCgst: number;
     FourteenSgst: number;
-    
-    SalesOrders : ISalesOrder[];
+
+    SalesOrders: ISalesOrder[];
 
     Date: Date;
     Total: number;
@@ -86,10 +93,6 @@ export interface ISalesOrder {
     Company: ICompany;
     Product: IProduct;
     Unit: IUnit;
-}
-
-export interface IUnitSubUnit {
-    Unit: IUnit
 }
 
 export interface Predicate<T> {

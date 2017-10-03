@@ -2,7 +2,7 @@
   <h2>Purchase Order</h2>
     <!-- <input class='btn' type='button' value='Refresh' (click)="refreshPurchaseOrder()" /> -->
     <div class="row">
-    <input class='btn' type='button' value='Add' (click)="addPurchaseOrder()" />
+     <input class='btn' type='button' value='Add' (click)="addPurchaseOrder()" />
     <input class='btn' type='button' value='Cancel' (click)="onCancel()" [disabled]="!isAdd && !isEdit" />
     <purchase-order-form-view *ngIf="isAdd||isEdit" [(purchaseOrder)]="purchaseOrder" (onSavedEvent)="onSavedEvent($event)"></purchase-order-form-view>
     <input type="text" class="form-control" [(ngModel)]="purchaseOrderSearchText" (keyup)="onPurchaseOrderSearch()" placeholder="search purchaseOrder"

@@ -9,7 +9,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="mobile">Mobile</label>
-        <input type="text" class="form-control" [(ngModel)]="company.Mobile" name="mobile" placeholder="Mobile" id="mobile">
+        <input type="text" class="form-control" maxlength="10" [(ngModel)]="company.Mobile" name="mobile" placeholder="Mobile" id="mobile">
       </div>
     </div>
     <div class="col-md-4">
@@ -23,7 +23,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="aadharNumber">Aadhar Number</label>
-        <input type="text" class="form-control" [(ngModel)]="company.AadharNumber" name="aadharNumber" placeholder="Aadhar Number"
+        <input type="text" class="form-control" maxlength="12" [(ngModel)]="company.AadharNumber" name="aadharNumber" placeholder="Aadhar Number"
           id="AadharNumber">
       </div>
     </div>
