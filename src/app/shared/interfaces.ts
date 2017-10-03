@@ -56,7 +56,9 @@ export interface IBillInfo {
     TinNumber: string;
     GstNumber: string;
     Phone: string;
-
+    CreatedDate: string;
+    totalViewModel: any;
+    
     TwoHalfCgst: number;
     TwoHalfSgst: number;
     SixCgst: number;

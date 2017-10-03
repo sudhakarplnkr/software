@@ -17,7 +17,7 @@ export class BillViewComponent {
   @Input() billInfo: IBillInfo;
   constructor(
     private billInfoDataService: BillInfoDataService,
-    private calculatorService: CalculatorService,
+    public calculatorService: CalculatorService,
     private notificationService: NotificationService) {
   }
 }

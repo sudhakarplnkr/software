@@ -1,0 +1,7 @@
+﻿{
+  "version": "2.3.0",
+  "ignore": [
+    "\\Scripts\\jquery-1.10.2.js"
+  ],
+  "globalVariables": []
+}

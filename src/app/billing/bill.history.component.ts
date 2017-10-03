@@ -10,6 +10,7 @@ import { CalculatorService } from '../billing/calculator.service';
 })
 export class BillHistoryComponent {
   billSearchText: string;
+  hideGrid:boolean;
   billInfo: IBillInfo[] = [];
   billDetails: any;
   constructor(
