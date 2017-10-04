@@ -29,16 +29,6 @@
                       <td>Phone No:</td>
                       <td>9842072602</td>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Date:</td>
-                        <td>{{billInfo.Date| date:'medium'}}</td>
-                      </tr>
                   </tbody>
                 </table>
               </div>
@@ -79,10 +69,10 @@
                   <td class="text-center item-data"><strong>Price</strong></td>
                   <td class="text-center item-data"><strong>Quantity</strong></td>
                   <td class="text-center item-data"><strong>GST(%)</strong></td>
-                  <td class="text-center item-data"><strong>CGST(&#8377;)</strong></td>
-                  <td class="text-center item-data"><strong>SGST(&#8377;)</strong></td>
-                  <td class="text-right"><strong>Taxable(&#8377;)</strong></td>
-                  <td class="text-right"><strong>Amount(&#8377;)</strong></td>
+                  <td class="text-center item-data"><strong>CGST(<i class="fa fa-rupee"></i>)</strong></td>
+                  <td class="text-center item-data"><strong>SGST(<i class="fa fa-rupee"></i>)</strong></td>
+                  <td class="text-right"><strong>Taxable(<i class="fa fa-rupee"></i>)</strong></td>
+                  <td class="text-right"><strong>Amount(<i class="fa fa-rupee"></i>)</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -110,8 +100,7 @@
                     <td class="text-center item-data"></td>
                     <td class="text-center item-data"></td>
                     <td class="text-right">Gross:</td>
-                    <td class="text-right">&#8377;{{billInfo.totalViewModel.totalWithOutTax}}</td>
-                    <td class="text-center remove-icon"></td>
+                    <td class="text-right"><i class="fa fa-rupee"></i> {{billInfo.totalViewModel.totalWithOutTax}}</td>
                   </tr>
                   <tr>
                     <td class="item-index">GST%</td>
@@ -122,8 +111,7 @@
                     <td class="text-center item-data">SGST Value</td>
                     <td class="text-center item-data">SGST TAX</td>
                     <td class="text-right">CGST</td>
-                    <td class="text-right">{{billInfo.totalViewModel.totalCgst}}</td>
-                    <td class="text-center remove-icon"></td>
+                    <td class="text-right"><i class="fa fa-rupee"></i> {{billInfo.totalViewModel.totalCgst}}</td>
                   </tr>
                   <tr>
                     <td class="item-index">5%</td>
@@ -134,8 +122,7 @@
                     <td class="text-center item-data">{{calculatorService.currencyRoundOff(billInfo.totalViewModel.twoHalfSgstAmount)}}</td>
                     <td class="text-center item-data">{{calculatorService.currencyRoundOff(billInfo.totalViewModel.twoHalfSgstTax)}}</td>
                     <td class="text-right">SGST</td>
-                    <td class="text-right">{{billInfo.totalViewModel.totalSgst}}</td>
-                    <td class="text-center remove-icon"></td>
+                    <td class="text-right"><i class="fa fa-rupee"></i> {{billInfo.totalViewModel.totalSgst}}</td>
                   </tr>
                   <tr>
                     <td class="item-index">12%</td>
@@ -146,8 +133,7 @@
                     <td class="text-center item-data">{{calculatorService.currencyRoundOff(billInfo.totalViewModel.sixSgstAmount)}}</td>
                     <td class="text-center item-data">{{calculatorService.currencyRoundOff(billInfo.totalViewModel.sixSgstTax)}}</td>
                     <td class="text-right">Total</td>
-                    <td class="text-right">{{calculatorService.currencyRoundOff(billInfo.totalViewModel.totalWithOutTax+billInfo.totalViewModel.totalCgst+billInfo.totalViewModel.totalSgst)}}</td>
-                    <td class="text-center remove-icon"></td>
+                    <td class="text-right"><i class="fa fa-rupee"></i> {{calculatorService.currencyRoundOff(billInfo.totalViewModel.totalWithOutTax+billInfo.totalViewModel.totalCgst+billInfo.totalViewModel.totalSgst)}}</td>
                   </tr>
                   <tr>
                     <td class="item-index">18%</td>
@@ -159,7 +145,6 @@
                     <td class="text-center item-data">{{calculatorService.currencyRoundOff(billInfo.totalViewModel.nineSgstTax)}}</td>
                     <td class="text-right"></td>
                     <td class="text-right"></td>
-                    <td class="text-center remove-icon"></td>
                   </tr>
                   <tr>
                     <td class="item-index">28%</td>
@@ -171,7 +156,6 @@
                     <td class="text-center item-data">{{calculatorService.currencyRoundOff(billInfo.totalViewModel.fourteenSgstTax)}}</td>
                     <td class="text-right"></td>
                     <td class="text-right"></td>
-                    <td class="text-center remove-icon"></td>
                   </tr>
               </tbody>
             </table>

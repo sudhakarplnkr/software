@@ -40,6 +40,7 @@ import { BillInfoDataService } from './billing/billInfo.data.service';
 
 // routing
 import { RouterModule, Routes } from '@angular/router';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 
 const appRoutes: Routes = [
   { path: '', component: BillingComponent },
@@ -73,7 +74,8 @@ const appRoutes: Routes = [
     BrowserModule,
     Ng2CompleterModule,
     FormsModule,
-    Ng2FilterPipeModule
+    Ng2FilterPipeModule,
+    Angular2FontawesomeModule
   ],
   providers: [ProductDataService, ConfigService, NotificationService, CalculatorService, UnitDataService, CompanyDataService, 
     PurchaseOrderDataService,
