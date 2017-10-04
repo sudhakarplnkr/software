@@ -40,5 +40,7 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-/eBillingApi/packages
+/service/packages
+/service/**/obj
+/service/**/bin
 bower_components/bootstrap/bower.json

@@ -3,7 +3,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="product">Product</label>
-        <select class="form-control" [(ngModel)]="purchaseOrder.ProductId" name="product">
+        <select class="form-control" [disabled]="isEdit" [(ngModel)]="purchaseOrder.ProductId" name="product">
           <option *ngFor="let product of products" value= {{product.Id}}>
             {{product.Description}}
           </option>
@@ -13,7 +13,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="company">Company</label>
-        <select class="form-control" [(ngModel)]="purchaseOrder.CompanyId" name="company">
+        <select class="form-control" [disabled]="isEdit" [(ngModel)]="purchaseOrder.CompanyId" name="company">
           <option *ngFor="let company of companies" value= {{company.Id}}>
             {{company.Name}}
           </option>
@@ -23,7 +23,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="unit">Unit</label>
-        <select class="form-control" [(ngModel)]="purchaseOrder.UnitId" name="unit" placeholder="Unit">
+        <select class="form-control" [disabled]="isEdit" [(ngModel)]="purchaseOrder.UnitId" name="unit" placeholder="Unit">
           <option *ngFor="let unit of units" value= {{unit.Id}}>
             {{unit.Description}}
           </option>
@@ -56,28 +56,29 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="openingStock">Opening Stock</label>
-        <input type="text" class="form-control" [(ngModel)]="purchaseOrder.OpeningStock" name="openingStock" placeholder="Opening Stock"
+        <input type="text" class="form-control" [disabled]="isEdit" (blur)="purchaseOrder.CurrentStock=purchaseOrder.OpeningStock" [disabled]="isAdd" [(ngModel)]="purchaseOrder.OpeningStock" name="openingStock" placeholder="Opening Stock"
           id="openingStock">
       </div>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-2" *ngIf="purchaseOrder.OldStock>0">
       <div class="form-group">
-        <label for="closingStock">Closing Stock</label>
-        <input type="text" class="form-control" [(ngModel)]="purchaseOrder.ClosingStock" name="closingStock" placeholder="Closing Stock"
+        <label for="closingStock">Old Stock</label>
+        <input type="text" class="form-control" disabled="disabled" [(ngModel)]="purchaseOrder.OldStock" name="closingStock" placeholder="Closing Stock"
           id="closingStock">
       </div>
     </div>
     <div class="col-md-2">
       <div class="form-group">
         <label for="CurrentStock">Current Stock</label>
-        <input type="text" class="form-control" [(ngModel)]="purchaseOrder.CurrentStock" name="currentStock" placeholder="Current Stock"
+        
+        <input type="text" class="form-control" disabled="disabled" [(ngModel)]="purchaseOrder.CurrentStock" name="currentStock" placeholder="Current Stock"
           id="currentStock">
       </div>
     </div>  
     <div class="col-md-2">
       <div class="form-group">
         <label for="sGst">S GST</label>
-        <input type="text" class="form-control" [(ngModel)]="purchaseOrder.Sgst" name="sGst" placeholder="S GST" id="sGst">
+        <input type="text" class="form-control" (blur)="purchaseOrder.Cgst=purchaseOrder.Sgst"  [(ngModel)]="purchaseOrder.Sgst" name="sGst" placeholder="S GST" id="sGst">
       </div>
     </div>
     <div class="col-md-2">

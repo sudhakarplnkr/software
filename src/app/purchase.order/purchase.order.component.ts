@@ -16,7 +16,7 @@ export class PurchaseOrderComponent {
   isAdd: boolean = false;
   isEdit: boolean = false;
   currentPageNumber: number = 1;
-  pageSize: number = 2;
+  pageSize: number = 10;
   totalPageNumber: number[];
   currentPageItems: IPurchaseOrder[] = [];
   purchaseOrder: IPurchaseOrder = {} as IPurchaseOrder;
@@ -31,14 +31,18 @@ export class PurchaseOrderComponent {
 
   addPurchaseOrder() {
     this.isAdd = true;
+    this.isEdit = false;
     this.purchaseOrder = {} as IPurchaseOrder;
   }
   onSavedEvent() {
+    this.isAdd = false;
+    this.isEdit = false;
     this.purchaseOrder = {} as IPurchaseOrder;
     this.loadData();
   }
   onEdit(purchaseOrder: IPurchaseOrder) {
     this.isEdit = true;
+    this.isAdd = false;
     this.purchaseOrder = Object.assign({}, purchaseOrder);
   }
 

@@ -16,6 +16,7 @@ export class PurchaseOrderFormComponent {
   companies: ICompany[] = [];
   units: IUnit[] = [];
   @Input() purchaseOrder: IPurchaseOrder;
+  @Input() isEdit: boolean;
   @Output() onSavedEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
   constructor(private notificationService: NotificationService,
     private purchaseOrderDataService: PurchaseOrderDataService,
@@ -51,6 +52,9 @@ export class PurchaseOrderFormComponent {
   }
 
   onSave() {
+    if (!this.IsValid()) {
+      return;
+    }
     if (this.purchaseOrder.Id > 0) {
       this.purchaseOrderDataService.updatePurchaseOrder(this.purchaseOrder).subscribe(() => {
         this.notificationService.printSuccessMessage('company saved successful');
@@ -62,5 +66,37 @@ export class PurchaseOrderFormComponent {
       this.notificationService.printSuccessMessage('company saved successful');
       this.onSavedEvent.emit(true);
     });
+  }
+
+  private IsValid(): boolean {
+    if (!this.purchaseOrder.ProductId) {
+      this.notificationService.printErrorMessage('please select product');
+      return false;
+    }
+    if (!this.purchaseOrder.CompanyId) {
+      this.notificationService.printErrorMessage('please select company');
+      return false;
+    }
+    if (!this.purchaseOrder.UnitId) {
+      this.notificationService.printErrorMessage('please select unit');
+      return false;
+    }
+    if (!this.purchaseOrder.PerUnitPrice) {
+      this.notificationService.printErrorMessage('please enter price per unit');
+      return false;
+    }
+    if (!this.purchaseOrder.SalesPrice) {
+      this.notificationService.printErrorMessage('pplease enter sales price');
+      return false;
+    }
+    if (!this.purchaseOrder.ReSalesPrice) {
+      this.notificationService.printErrorMessage('please enter resales price');
+      return false;
+    }
+    if (!this.purchaseOrder.OpeningStock) {
+      this.notificationService.printErrorMessage('please enter opening stock');
+      return false;
+    }
+    return true;
   }
 }

@@ -36,6 +36,7 @@ export interface IPurchaseOrder {
     OpeningStock: number;
     ClosingStock: number;
     CurrentStock: number;
+    OldStock: number;
     Cgst: number;
     Sgst: number;
     Company: ICompany;
