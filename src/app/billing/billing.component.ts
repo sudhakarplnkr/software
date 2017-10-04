@@ -120,7 +120,7 @@ export class BillingComponent implements OnInit, AfterViewChecked {
       this.notificationService.printErrorMessage('please enter customer name.');
       return false;
     }
-    if (!this.isValidMobileNumber(this.billInfo.Mobile)) {
+    if (this.billInfo.Mobile && !this.isValidMobileNumber(this.billInfo.Mobile)) {
       this.notificationService.printErrorMessage('please enter valid mobile number.');
       return false;
     }
@@ -149,6 +149,9 @@ export class BillingComponent implements OnInit, AfterViewChecked {
       return;
     }
     this.companyDataService.getCompanyByMobile(this.billInfo.Mobile).subscribe((company: ICompany) => {
+      if(!company){
+        return;
+      }
       this.notificationService.printSuccessMessage('found customer details.');
       this.billInfo.Aadhar = company.AadharNumber;
       this.billInfo.Address = company.Address;
