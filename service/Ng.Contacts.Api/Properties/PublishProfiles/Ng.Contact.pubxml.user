@@ -79,7 +79,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/24/2017 17:26:06</publishTime>
     </File>
     <File Include="bin/Castle.Windsor.dll">
-      <publishTime>12/07/2017 06:47:46</publishTime>
+      <publishTime>07/12/2017 06:47:46</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>05/15/2014 12:23:12</publishTime>
@@ -94,22 +94,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/25/2012 11:48:56</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>03/08/2014 20:33:56</publishTime>
+      <publishTime>08/03/2014 20:33:56</publishTime>
     </File>
     <File Include="bin/Ng.Contact.Api.dll">
-      <publishTime>10/04/2017 06:37:12</publishTime>
+      <publishTime>10/05/2017 15:31:44</publishTime>
     </File>
     <File Include="bin/Ng.Contact.Model.dll">
-      <publishTime>10/03/2017 16:20:57</publishTime>
+      <publishTime>03/10/2017 16:20:57</publishTime>
     </File>
     <File Include="bin/Ng.Contact.Repository.dll">
-      <publishTime>10/03/2017 16:20:57</publishTime>
+      <publishTime>10/05/2017 15:31:36</publishTime>
     </File>
     <File Include="bin/Ng.Contact.Service.dll">
-      <publishTime>10/04/2017 06:37:08</publishTime>
+      <publishTime>10/05/2017 15:31:36</publishTime>
     </File>
     <File Include="bin/Ng.Contacts.Utils.dll">
-      <publishTime>10/03/2017 16:20:57</publishTime>
+      <publishTime>03/10/2017 16:20:57</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>06/18/2015 20:19:46</publishTime>
@@ -169,7 +169,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2015 04:02:18</publishTime>
     </File>
     <File Include="bin/System.Web.Optimization.dll">
-      <publishTime>11/02/2014 15:26:04</publishTime>
+      <publishTime>02/11/2014 15:26:04</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
       <publishTime>01/28/2015 04:02:32</publishTime>
@@ -223,7 +223,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/19/2017 06:30:11</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>10/03/2017 16:18:59</publishTime>
+      <publishTime>03/10/2017 16:18:59</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
       <publishTime>09/17/2017 13:31:35</publishTime>
@@ -241,7 +241,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/17/2017 13:31:35</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>04/10/2017 05:13:24</publishTime>
+      <publishTime>10/05/2017 15:31:47</publishTime>
     </File>
   </ItemGroup>
 </Project>
