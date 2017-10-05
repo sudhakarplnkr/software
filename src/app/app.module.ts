@@ -4,6 +4,11 @@ import { Ng2CompleterModule } from 'ng2-completer';
 import { FormsModule } from "@angular/forms";
 import { AppComponent } from './app.component';
 import { Ng2FilterPipeModule } from 'ng2-filter-pipe';
+import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
+import { SearchFilterPipe } from './utils/search.filter';
+import { InputNumbersOnly } from './utils/input.number.only';
+import { Http } from '@angular/http';
+import { ExtendedHttpService } from './spinner/extended.http.service';
 
 // components
 import { UnitComponent } from './unit/unit.component';
@@ -32,15 +37,15 @@ import { CompanyFormComponent } from './company/company.form';
 import { PurchaseOrderFormComponent } from './purchase.order/purchase.order.form';
 
 // data services
-import { ProductDataService } from './product/product.data.service';  
+import { ProductDataService } from './product/product.data.service';
 import { UnitDataService } from './unit/unit.data.service';
 import { CompanyDataService } from './company/company.data.service';
 import { PurchaseOrderDataService } from './purchase.order/purchase.order.data.service';
 import { BillInfoDataService } from './billing/billInfo.data.service';
+import { SharedService } from './shared/shared.service';
 
 // routing
 import { RouterModule, Routes } from '@angular/router';
-import { Angular2FontawesomeModule } from 'angular2-fontawesome/angular2-fontawesome'
 
 const appRoutes: Routes = [
   { path: '', component: BillingComponent },
@@ -67,7 +72,9 @@ const appRoutes: Routes = [
     CompanyFormComponent,
     PurchaseOrderFormComponent,
     BillHistoryComponent,
-    BillViewComponent
+    BillViewComponent,
+    SearchFilterPipe,
+    InputNumbersOnly
   ],
   imports: [
     RouterModule.forRoot(appRoutes),
@@ -77,11 +84,14 @@ const appRoutes: Routes = [
     Ng2FilterPipeModule,
     Angular2FontawesomeModule
   ],
-  providers: [ProductDataService, ConfigService, NotificationService, CalculatorService, UnitDataService, CompanyDataService, 
+  providers: [ProductDataService, ConfigService, NotificationService, CalculatorService, UnitDataService, CompanyDataService,
     PurchaseOrderDataService,
     BillInfoDataService,
     HelperService,
-    ProductFactory],
+    ProductFactory,
+    { provide: Http, useClass: ExtendedHttpService },
+    SharedService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

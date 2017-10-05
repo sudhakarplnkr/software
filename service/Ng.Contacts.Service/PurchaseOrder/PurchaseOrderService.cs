@@ -24,14 +24,18 @@
             return purchaseOrderService;
         }
 
-        private void GetByProductAndUnit(long productId, long unitId)
+        public PurchaseOrder GetByProductAndUnit(long productId, long unitId)
         {
-            var purchaseOrders = GetAll().Where(u => u.ProductId == productId && u.UnitId == unitId).ToList();
-            purchaseOrders.ForEach(order =>
-            {
-                order.IsActive = false;
-                this.purchaseOrderRepository.Edit(order);
-            });
+            var purchaseOrder = this.purchaseOrderRepository.GetByProductAndUnit(productId, unitId);
+            return purchaseOrder;
+        }
+
+
+        private void UpdateExistingPurchaseOrder(long id)
+        {
+            var purchaseOrder = this.purchaseOrderRepository.Get(id);
+            purchaseOrder.IsActive = false;
+            this.purchaseOrderRepository.Edit(purchaseOrder);
         }
 
         public void Delete(long id)

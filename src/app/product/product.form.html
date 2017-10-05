@@ -1,22 +1,16 @@
 <form>
   <h2>Product</h2>
-  <div class="row">
-    <!-- <div class="col-md-4">
-      <div class="form-group">
-        <label for="code">Product</label>
-        <input type="text" class="form-control" [(ngModel)]="product.Code" name="code" placeholder="Code" id="code">
-      </div>
-    </div> -->
+  <div class="row">  
     <div class="col-md-4">
       <div class="form-group">
         <label for="description">Description<span class="mandatory-field">*</span></label>
-        <input type="text" class="form-control" [(ngModel)]="product.Description" name="description" placeholder="Description" id="description">
+        <input type="text" class="form-control" maxlength="50" [(ngModel)]="product.Description" name="description" placeholder="Description" id="description">
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label for="price">Tamil<span class="mandatory-field">*</span></label>
-        <input type="text" class="form-control" name="tamil" [(ngModel)]="product.TamilName" placeholder="Tamil Name" id="tamil">
+        <input type="text" class="form-control" name="tamil" maxlength="50" [(ngModel)]="product.TamilName" placeholder="Tamil Name" id="tamil">
       </div>
     </div>
   </div>

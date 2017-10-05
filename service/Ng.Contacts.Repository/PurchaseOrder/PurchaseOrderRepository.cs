@@ -17,5 +17,11 @@
             var purchaseOrder = FindBy(u => u.Id == id).FirstOrDefault();
             return purchaseOrder;
         }
+
+        public PurchaseOrder GetByProductAndUnit(long productId, long unitId)
+        {
+            var purchaseOrder = FindBy(u => u.IsActive && u.ProductId == productId && u.UnitId == unitId).FirstOrDefault();
+            return purchaseOrder;
+        }
     }
 }

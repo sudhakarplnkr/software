@@ -15,6 +15,7 @@ export class PurchaseOrderFormComponent {
   products: IProduct[] = [];
   companies: ICompany[] = [];
   units: IUnit[] = [];
+  oldOrder: IPurchaseOrder;
   @Input() purchaseOrder: IPurchaseOrder;
   @Input() isEdit: boolean;
   @Output() onSavedEvent: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -62,6 +63,9 @@ export class PurchaseOrderFormComponent {
       });
       return;
     }
+    if (this.oldOrder) {
+      this.purchaseOrder.Id = this.oldOrder.Id;      
+    }
     this.purchaseOrderDataService.createPurchaseOrder(this.purchaseOrder).subscribe(() => {
       this.notificationService.printSuccessMessage('company saved successful');
       this.onSavedEvent.emit(true);
@@ -98,5 +102,25 @@ export class PurchaseOrderFormComponent {
       return false;
     }
     return true;
+  }
+
+  onProductSelect() {
+    this.findPurchaseOrder();
+  }
+
+  onUnitSelect() {
+    this.findPurchaseOrder();
+  }
+
+  findPurchaseOrder() {
+    if (!this.purchaseOrder.ProductId || !this.purchaseOrder.UnitId) {
+      return;
+    }
+
+    this.purchaseOrderDataService.getPurchaseOrderByProductAndUnit(this.purchaseOrder.ProductId, this.purchaseOrder.UnitId)
+      .subscribe((response: IPurchaseOrder) => {
+        this.oldOrder = response;
+      });
+
   }
 }

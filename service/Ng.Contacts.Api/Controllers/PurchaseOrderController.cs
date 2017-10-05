@@ -18,16 +18,17 @@
         [HttpGet]
         public IEnumerable<PurchaseOrder> Get()
         {
-            var purchaseOrders = this.purchaseOrderService.GetAll().ToList();
+            var purchaseOrders = this.purchaseOrderService.GetAll().Where(u => u.IsActive).ToList();
             return purchaseOrders;
         }
 
         [HttpGet]
-        public PurchaseOrder Get(long id)
+        public PurchaseOrder Get(long id, long unitId)
         {
             Guard.IsNotNullOrZero(id);
+            Guard.IsNotNullOrZero(unitId);
 
-            var purchaseOrders = this.purchaseOrderService.Get(id);
+            var purchaseOrders = this.purchaseOrderService.GetByProductAndUnit(id, unitId);
             return purchaseOrders;
         }
 
@@ -35,13 +36,15 @@
         public void Post(PurchaseOrder purchaseOrder)
         {
             Guard.IsNotNull(purchaseOrder);
-            //var purchaseOrders = this.purchaseOrderService.GetByProductAndUnit(purchaseOrder.ProductId, purchaseOrder.UnitId);
-            //purchaseOrders.ForEach(order =>
-            //{
-            //    order.IsActive = false;
-            //});
+            if (purchaseOrder.Id > 0)
+            {
+                var originalOrder = this.purchaseOrderService.Get(purchaseOrder.Id);
+                originalOrder.IsActive = false;
+                purchaseOrder.OpeningStock += originalOrder.CurrentStock;
+                this.purchaseOrderService.Update(originalOrder);
+                purchaseOrder.Id = 0;
+            }
 
-           
             purchaseOrder.IsActive = true;
             this.purchaseOrderService.Create(purchaseOrder);
         }

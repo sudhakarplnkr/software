@@ -3,7 +3,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" class="form-control" [(ngModel)]="company.Name" name="name" placeholder="Name" id="name">
+        <input type="text" class="form-control" maxlength="50" [(ngModel)]="company.Name" name="name" placeholder="Name" id="name">
       </div>
     </div>
     <div class="col-md-4">
@@ -15,7 +15,7 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="phone">Phone</label>
-        <input type="text" class="form-control" [(ngModel)]="company.Phone" name="phone" placeholder="Phone" id="phone">
+        <input type="text" class="form-control" maxlength="50" [(ngModel)]="company.Phone" name="phone" placeholder="Phone" id="phone">
       </div>
     </div>
   </div>
@@ -30,13 +30,13 @@
     <div class="col-md-4">
       <div class="form-group">
         <label for="tinNumber">Tin Number</label>
-        <input type="text" class="form-control" [(ngModel)]="company.TinNumber" name="tinNumber" placeholder="Tin Number" id="tinNumber">
+        <input type="text" class="form-control" maxlength="50" [(ngModel)]="company.TinNumber" name="tinNumber" placeholder="Tin Number" id="tinNumber">
       </div>
     </div>
     <div class="col-md-4">
       <div class="form-group">
         <label for="gstNumber">Gst Number</label>
-        <input type="text" class="form-control" [(ngModel)]="company.GstNumber" name="gstNumber" placeholder="Gst Number" id="phone">
+        <input type="text" class="form-control" maxlength="50" [(ngModel)]="company.GstNumber" name="gstNumber" placeholder="Gst Number" id="phone">
       </div>
     </div>
   </div>

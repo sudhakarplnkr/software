@@ -19,6 +19,10 @@
         public IEnumerable<Product> Get()
         {
             var products = this.productService.GetAll().ToList();
+            products.ForEach(product =>
+            {
+                product.PurchaseOrders = product.PurchaseOrders.Where(u => u.IsActive).ToList();
+            });
             return products;
         }
 

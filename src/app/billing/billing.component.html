@@ -1,15 +1,16 @@
 <div class="container">
   <div class="col-md-6">
     <div class="form-group col-md-3">
-      <input class="btn btn-default" [disabled]="billInfo.SalesOrders?.length==0" (click)="saveBill()" type="button" name="button" value="Save"
-      />
+      <input class="btn btn-default" [disabled]="billInfo.SalesOrders?.length==0" (click)="saveBill()" type="button" name="button"
+        value="Save" />
     </div>
     <div class="form-group col-md-3">
-      <input class="btn btn-default" [disabled]="billInfo.SalesOrders?.length==0" (click)="SaveAndprintBill()" type="button" name="button" value="Print & Save"
-      />
+      <input class="btn btn-default" [disabled]="billInfo.SalesOrders?.length==0" (click)="SaveAndprintBill()" type="button" name="button"
+        value="Print & Save" />
     </div>
     <div class="form-group col-md-3">
-      <input class="btn btn-default" [disabled]="billInfo.SalesOrders?.length==0" (click)="cancelBill()" type="button" name="button" value="Cancel" />
+      <input class="btn btn-default" [disabled]="billInfo.SalesOrders?.length==0" (click)="cancelBill()" type="button" name="button"
+        value="Cancel" />
     </div>
   </div>
 </div>
@@ -38,15 +39,15 @@
                       <td>9842072602</td>
                     </tr>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>Date:</td>
-                        <td>{{currentDate |async | date:'d/M/yy hh:mm:ss' }}</td>
-                      </tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Date:</td>
+                      <td>{{currentDate |async | date:'d/M/yy hh:mm:ss' }}</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -54,32 +55,33 @@
                 <div>Balance: <input class="form-control" placeholder="balance" type="text" name="balance" [(ngModel)]="billInfo.Balance"></div>
                 <div class="row">
                   <div class="form-group col-md-4">
-                    <input class="form-control" placeholder="Name" type="text" name="name" [(ngModel)]="billInfo.CompanyName">
+                    <input class="form-control" maxlength="50" placeholder="Name" type="text" name="name" [(ngModel)]="billInfo.CompanyName">
                     <input class="form-control" placeholder="Mobile" (blur)="searchCustomer()" type="text" name="mobile" maxlength="10" [(ngModel)]="billInfo.Mobile">
-                    <input class="form-control" placeholder="Phone" type="text" name="phone" [(ngModel)]="billInfo.Phone">
+                    <input class="form-control" maxlength="50" placeholder="Phone" type="text" name="phone" [(ngModel)]="billInfo.Phone">
                   </div>
                   <div class="form-group col-md-4">
                     <input class="form-control" placeholder="Aadhar" maxlength="12" type="text" name="aadhar" [(ngModel)]="billInfo.Aadhar">
-                    <input class="form-control" placeholder="Pan" type="text" name="pan" [(ngModel)]="billInfo.PanNumber">
-                    <input class="form-control" placeholder="GST NO" type="text" name="gstNo" [(ngModel)]="billInfo.GstNumber">
+                    <input class="form-control" maxlength="9" placeholder="Pan" type="text" name="pan" [(ngModel)]="billInfo.PanNumber">
+                    <input class="form-control" maxlength="20" placeholder="GST NO" type="text" name="gstNo" [(ngModel)]="billInfo.GstNumber">
                   </div>
                   <div class="form-group col-md-4">
                     <textarea class="form-control" rows="3" placeholder="Address" name="address" [(ngModel)]="billInfo.Address"></textarea>
-                    <input class="form-control" placeholder="TIN NO" type="text" name="tinNo" [(ngModel)]="billInfo.TinNumber">
+                    <input class="form-control" maxlength="20" placeholder="TIN NO" type="text" name="tinNo" [(ngModel)]="billInfo.TinNumber">
                   </div>
                 </div>
               </form>
             </div>
           </div>
           <div class="row">
-            <div class="form-group">
+            <div class="form-group col-md-11">
               <text-search (selectedItems)="selectedItems($event)"></text-search>
+            </div>           
+            <div class="form-group col-md-3">
+              <input class="form-control" number-only maxlength="20" placeholder="Price" type="text" name="Price" [(ngModel)]="salesOrder.PerUnitPrice">
             </div>
             <div class="form-group col-md-3">
-              <input class="form-control" placeholder="Price" type="text" name="Price" [(ngModel)]="salesOrder.PerUnitPrice">
-            </div>
-            <div class="form-group col-md-3">
-              <input class="form-control" [focus]="myFocusTriggeringEventEmitter" placeholder="Quantity" type="text" name="Quantity" [(ngModel)]="salesOrder.Quantity">
+              <input class="form-control" number-only maxlength="10" [focus]="myFocusTriggeringEventEmitter" placeholder="Quantity" type="text"
+                name="Quantity" [(ngModel)]="salesOrder.Quantity">
             </div>
             <div class="form-group col-md-3">
               <select (ngModelChange)="onUnitChange($event)" class="form-control" [(ngModel)]="salesOrder.UnitId" name="unit" placeholder="Unit">
@@ -89,7 +91,8 @@
                 </select>
             </div>
             <div class="form-group col-md-3">
-              <input class="btn btn-default" (click)="addItemToBill()"  [disabled]="!salesOrder?.ProductId" type="button" name="button" value="Add" />
+              <input class="btn btn-default" (click)="addItemToBill()" [disabled]="!salesOrder.PerUnitPrice||!salesOrder.Quantity||!salesOrder?.ProductId" type="button" name="button"
+                value="Add" />
             </div>
           </div>
           <div class="table-responsive">
@@ -105,7 +108,7 @@
                   <td class="text-center item-data"><strong>SGST(<i class="fa fa-rupee"></i> )</strong></td>
                   <td class="text-right"><strong>Taxable(<i class="fa fa-rupee"></i> )</strong></td>
                   <td class="text-right"><strong>Amount(<i class="fa fa-rupee"></i> )</strong></td>
-                  <td class="text-center remove-icon"><i class="fa fa-times"></i></td>
+                  <td class="text-center remove-icon"></td>
                 </tr>
               </tbody>
             </table>
@@ -114,7 +117,7 @@
                 <tr *ngFor="let item of billInfo.SalesOrders; let index = index;">
                   <td class="item-index">{{index+1}}</td>
                   <td class="item-product">{{item.ProductDescription}}</td>
-                  <td class="text-center item-data"  [style.color]="(item.PerUnitPrice<item.ActualPrice) ? 'red' : 'black'">
+                  <td class="text-center item-data" [style.color]="(item.PerUnitPrice<item.ActualPrice) ? 'red' : 'black'">
                     {{item.PerUnitPrice}}
                   </td>
                   <td class="text-center item-data">{{item.Quantity +' '+ item.Unit.Code}}</td>

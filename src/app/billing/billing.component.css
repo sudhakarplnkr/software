@@ -34,7 +34,19 @@
   .remove-icon{
     width:7% !important;
   }
+  .remove-icon i{
+    cursor: pointer;
+  }
 
   .aadhar-info {
     width: 10% !important;
+  }
+
+  .product-refresh{
+    line-height: 35px;
+    cursor: pointer;
+  }
+
+  .form-control{
+    margin-bottom: 3px;
   }

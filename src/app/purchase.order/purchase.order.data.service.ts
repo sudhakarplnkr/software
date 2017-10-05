@@ -53,4 +53,13 @@ export class PurchaseOrderDataService {
       })
       .catch(this.notificationService.handleError);
   }
+
+  getPurchaseOrderByProductAndUnit(productId: number, unitId: number): Observable<IPurchaseOrder> {
+    return this.http.get(this.purchaseOrderUrl + productId + '?unitId=' + unitId)
+      .map((res: Response) => {
+        return res.json();
+      })
+      .catch(this.notificationService.handleError);
+  }
+
 }

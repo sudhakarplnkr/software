@@ -3,7 +3,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="product">Product</label>
-        <select class="form-control" [disabled]="isEdit" [(ngModel)]="purchaseOrder.ProductId" name="product">
+        <select #product (change)="findPurchaseOrder()" class="form-control" [disabled]="isEdit" [(ngModel)]="purchaseOrder.ProductId" name="product">
           <option *ngFor="let product of products" value= {{product.Id}}>
             {{product.Description}}
           </option>
@@ -23,7 +23,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="unit">Unit</label>
-        <select class="form-control" [disabled]="isEdit" [(ngModel)]="purchaseOrder.UnitId" name="unit" placeholder="Unit">
+        <select class="form-control" (change)="findPurchaseOrder()" [disabled]="isEdit" [(ngModel)]="purchaseOrder.UnitId" name="unit" placeholder="Unit">
           <option *ngFor="let unit of units" value= {{unit.Id}}>
             {{unit.Description}}
           </option>
@@ -33,21 +33,21 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="code">Per Unit Price</label>
-        <input type="text" class="form-control" [(ngModel)]="purchaseOrder.PerUnitPrice" name="perUnitPrice" placeholder="Per Unit Price"
+        <input type="text" class="form-control" number-only [(ngModel)]="purchaseOrder.PerUnitPrice" name="perUnitPrice" placeholder="Per Unit Price"
           id="perUnitPrice">
       </div>
     </div>
     <div class="col-md-2">
       <div class="form-group">
         <label for="salesPrice">Sales Price</label>
-        <input type="text" class="form-control" [(ngModel)]="purchaseOrder.SalesPrice" name="salesPrice" placeholder="Sales Price"
+        <input type="text" class="form-control" number-only [(ngModel)]="purchaseOrder.SalesPrice" name="salesPrice" placeholder="Sales Price"
           id="salesPrice">
       </div>
     </div>
     <div class="col-md-2">
       <div class="form-group">
         <label for="reSalesPrice">Re Sales Price</label>
-        <input type="text" class="form-control" [(ngModel)]="purchaseOrder.ReSalesPrice" name="reSalesPrice" placeholder="Re Sales Price"
+        <input type="text" class="form-control" number-only [(ngModel)]="purchaseOrder.ReSalesPrice" name="reSalesPrice" placeholder="Re Sales Price"
           id="reSalesPrice">
       </div>
     </div>
@@ -56,14 +56,14 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="openingStock">Opening Stock</label>
-        <input type="text" class="form-control" [disabled]="isEdit" (blur)="purchaseOrder.CurrentStock=purchaseOrder.OpeningStock" [disabled]="isAdd" [(ngModel)]="purchaseOrder.OpeningStock" name="openingStock" placeholder="Opening Stock"
+        <input type="text" class="form-control" number-only [disabled]="isEdit" (blur)="purchaseOrder.CurrentStock=purchaseOrder.OpeningStock" [disabled]="isAdd" [(ngModel)]="purchaseOrder.OpeningStock" name="openingStock" placeholder="Opening Stock"
           id="openingStock">
       </div>
     </div>
-    <div class="col-md-2" *ngIf="purchaseOrder.OldStock>0">
+    <div class="col-md-2" *ngIf="oldOrder">
       <div class="form-group">
-        <label for="closingStock">Old Stock</label>
-        <input type="text" class="form-control" disabled="disabled" [(ngModel)]="purchaseOrder.OldStock" name="closingStock" placeholder="Closing Stock"
+        <label for="oldStock">Old Stock</label>
+        <input type="text" class="form-control" disabled="disabled" [(ngModel)]="oldOrder.CurrentStock" name="closingStock" placeholder="Closing Stock"
           id="closingStock">
       </div>
     </div>
@@ -78,13 +78,13 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="sGst">S GST</label>
-        <input type="text" class="form-control" (blur)="purchaseOrder.Cgst=purchaseOrder.Sgst"  [(ngModel)]="purchaseOrder.Sgst" name="sGst" placeholder="S GST" id="sGst">
+        <input type="text" class="form-control" number-only (blur)="purchaseOrder.Cgst=purchaseOrder.Sgst"  [(ngModel)]="purchaseOrder.Sgst" name="sGst" placeholder="S GST" id="sGst">
       </div>
     </div>
     <div class="col-md-2">
         <div class="form-group">
           <label for="cGst">C GST</label>
-          <input type="text" class="form-control" [(ngModel)]="purchaseOrder.Cgst" name="cGst" placeholder="C GST" id="cGst">
+          <input type="text" class="form-control" number-only [(ngModel)]="purchaseOrder.Cgst" name="cGst" placeholder="C GST" id="cGst">
         </div>
       </div>
   </div>

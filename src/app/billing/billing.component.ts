@@ -76,7 +76,7 @@ export class BillingComponent implements OnInit, AfterViewChecked {
     this.salesOrder.CompanyName = purchaseOrder.Company.Name;
     this.salesOrder.Unit = purchaseOrder.Unit;
     this.salesOrder.PerUnitPrice = purchaseOrder.PerUnitPrice;
-    this.salesOrder.ActualPrice = Object.assign({}, purchaseOrder.PerUnitPrice);
+    this.salesOrder.ActualPrice = purchaseOrder.PerUnitPrice;
     this.salesOrder.Cgst = purchaseOrder.Cgst;
     this.salesOrder.Sgst = purchaseOrder.Sgst;
     this.salesOrder.CurrentStock = purchaseOrder.CurrentStock;
