@@ -4,16 +4,18 @@ import { Directive, ElementRef } from '@angular/core';
     selector: '[number-only]'
 })
 export class InputNumbersOnly {
-    constructor(public el: ElementRef) {
-        this.el.nativeElement.onkeypress = (evt) => {
-            if ((evt.which < 48 || evt.which > 57) && evt.which !== 46) {
-                evt.preventDefault();
+    constructor(public element: ElementRef) {
+        this.element.nativeElement.onkeypress = (event) => {
+            if ((event.which < 48 || event.which > 57) && event.which !== 46) {
+                event.preventDefault();
             }
         };
-        this.el.nativeElement.onblur = (event) => {
+        this.element.nativeElement.onblur = (event) => {
             if (event.target.value && isNaN(event.target.value)) {
                 event.target.value = '';
+                return;
             }
+            event.target.value = parseFloat((Math.round(event.target.value * 100) / 100).toString()).toFixed(2);
         };
     }
 }

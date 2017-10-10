@@ -1,5 +1,6 @@
 ﻿namespace Ng.Contact.Service.Company
 {
+    using System;
     using EntityService;
     using Model.Entity;
     using Repository.Company;
@@ -28,6 +29,18 @@
             var company = this.companyRepository.Get(id);
             this.companyRepository.Delete(company);
             this.unitOfWork.Commit();
+        }
+
+        public bool IsExist(long id, long? mobile)
+        {
+            var isExist = this.companyRepository.IsExist(id, mobile);
+            return isExist;
+        }
+
+        public Company FindByMobile(long? mobile)
+        {
+            var company = this.companyRepository.FindByMobile(mobile);
+            return company;
         }
     }
 }

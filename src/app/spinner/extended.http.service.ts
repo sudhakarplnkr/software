@@ -21,8 +21,10 @@ export class ExtendedHttpService extends Http {
   }
 
   intercept(observable: any): Observable<Response> {
-    this.sharedService.pendingRequests++;
-    console.log('request: ' + this.sharedService.pendingRequests);
+    var timer = Observable.timer(0);
+    timer.subscribe(t => {
+      this.sharedService.pendingRequests++;
+    });
     return observable
       .catch((err, source) => {
         console.log("Caught error: " + err);
@@ -31,11 +33,7 @@ export class ExtendedHttpService extends Http {
       }, (err: any) => {
       })
       .finally(() => {
-        //var timer = Observable.timer(1000);
-        //timer.subscribe(t => {
-          this.sharedService.pendingRequests--;
-          console.log('response: ' + this.sharedService.pendingRequests);
-        //});
+        this.sharedService.pendingRequests--;
       });
   }
 }

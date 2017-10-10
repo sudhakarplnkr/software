@@ -56,7 +56,7 @@
     <div class="col-md-2">
       <div class="form-group">
         <label for="openingStock">Opening Stock</label>
-        <input type="text" class="form-control" number-only [disabled]="isEdit" (blur)="purchaseOrder.CurrentStock=purchaseOrder.OpeningStock" [disabled]="isAdd" [(ngModel)]="purchaseOrder.OpeningStock" name="openingStock" placeholder="Opening Stock"
+        <input type="text" class="form-control" number-only [disabled]="isEdit" (blur)="calculateStock()" [disabled]="isAdd" [(ngModel)]="purchaseOrder.OpeningStock" name="openingStock" placeholder="Opening Stock"
           id="openingStock">
       </div>
     </div>

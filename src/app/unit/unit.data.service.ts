@@ -26,7 +26,7 @@ export class UnitDataService {
       .catch(this.notificationService.handleError);
   }
 
-  createUnit(unit: IUnit): Observable<IUnit> {
+  createUnit(unit: IUnit): Observable<number> {
     let options = this.helperService.buildHeaders(RequestMethod.Post);
 
     return this.http.post(this._baseUnitUrl, unit, options)
@@ -36,7 +36,7 @@ export class UnitDataService {
       .catch(this.notificationService.handleError);
   }
 
-  updateUnit(unit: any): Observable<IUnit> {
+  updateUnit(unit: any): Observable<number> {
     let options = this.helperService.buildHeaders(RequestMethod.Put);
     return this.http.put(this._baseUnitUrl, unit, options)
       .map((res: Response) => {

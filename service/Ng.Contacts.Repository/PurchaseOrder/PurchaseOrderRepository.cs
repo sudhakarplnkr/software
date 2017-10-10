@@ -2,6 +2,7 @@
 {
     using Core;
     using Model.Entity;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
 
@@ -10,6 +11,15 @@
         public PurchaseOrderRepository(DbContext context)
             : base(context)
         {
+        }
+
+        public IList<PurchaseOrder> GetPurchaseOrders()
+        {
+            var product = GetAll()
+                .Include(u => u.Product)
+                .Include(u => u.Company)
+                .Include(u => u.Unit);
+            return product.ToList();
         }
 
         public PurchaseOrder Get(long id)

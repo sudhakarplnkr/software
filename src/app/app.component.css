@@ -33,7 +33,7 @@ table {
     clear: both;
   }
 
-  .table tbody {
+  .billing.table tbody {
     height: 420px;
     overflow-y: auto;
     overflow-x: hidden;

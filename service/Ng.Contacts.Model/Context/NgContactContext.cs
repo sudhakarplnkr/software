@@ -13,7 +13,7 @@
         public NgContactContext()
             : base("Name=NgContactContext")
         {
-            this.Configuration.LazyLoadingEnabled = true;
+            this.Configuration.LazyLoadingEnabled = false;
             Database.SetInitializer(new CreateDatabaseIfNotExists<NgContactContext>());
             Database.SetInitializer(new Seeds());
             //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<NgContactContext>());

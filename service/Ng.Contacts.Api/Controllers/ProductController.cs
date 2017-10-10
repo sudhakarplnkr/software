@@ -5,6 +5,7 @@
     using Service.Product;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Web.Http;
     public class ProductController : ApiController
     {
@@ -18,7 +19,7 @@
         [HttpGet]
         public IEnumerable<Product> Get()
         {
-            var products = this.productService.GetAll().ToList();
+            var products = this.productService.GetProducts().ToList();
             products.ForEach(product =>
             {
                 product.PurchaseOrders = product.PurchaseOrders.Where(u => u.IsActive).ToList();
@@ -31,22 +32,41 @@
         {
             Guard.IsNotNullOrZero(id);
 
-            var products = this.productService.Get(id);
-            return products;
+            var product = this.productService.Get(id);
+            return product;
         }
 
         [HttpPost]
-        public void Post(Product product)
+        public HttpStatusCode Post(Product product)
         {
             Guard.IsNotNull(product);
+            var isExist = this.productService.IsExist(product.Description);
+            if (isExist)
+            {
+                return HttpStatusCode.PreconditionFailed;
+            }
             this.productService.Create(product);
+            return HttpStatusCode.OK;
         }
 
         [HttpPut]
-        public void Put(Product product)
+        public HttpStatusCode Put(Product product)
         {
             Guard.IsNotNull(product);
-            this.productService.Update(product);
+
+            var originalProduct = this.productService.Get(product.Id);
+            Guard.IsNotNull(originalProduct);
+
+            var isExist = this.productService.IsExist(product.Description);
+            if (isExist && !string.Equals(originalProduct.Description, product.Description, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return HttpStatusCode.PreconditionFailed;
+            }
+
+            originalProduct.Description = product.Description;
+            originalProduct.TamilName = product.TamilName;
+            this.productService.Update(originalProduct);
+            return HttpStatusCode.OK;
         }
 
         [HttpDelete]

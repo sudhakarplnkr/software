@@ -20,7 +20,7 @@
         [HttpGet]
         public IEnumerable<BillInfo> Get()
         {
-            var billInfos = this.billInfoService.GetAll().ToList();
+            var billInfos = this.billInfoService.GetBills();
             return billInfos;
         }
 

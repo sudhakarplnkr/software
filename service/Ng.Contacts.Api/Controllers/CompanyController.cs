@@ -5,6 +5,7 @@
     using Service.Company;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Web.Http;
     public class CompanyController : ApiController
     {
@@ -27,22 +28,36 @@
         {
             Guard.IsNotNullOrZero(id);
 
-            var companys = this.companyService.Get(id);
+            var companys = this.companyService.FindByMobile(id);
             return companys;
         }
 
         [HttpPost]
-        public void Post(Company company)
+        public HttpStatusCode Post(Company company)
         {
             Guard.IsNotNull(company);
+            var isExist = this.companyService.IsExist(company.Id, company.Mobile);
+            if (isExist)
+            {
+                return HttpStatusCode.PreconditionFailed;
+            }
             this.companyService.Create(company);
+            return HttpStatusCode.OK;
         }
 
         [HttpPut]
-        public void Put(Company company)
+        public HttpStatusCode Put(Company company)
         {
             Guard.IsNotNull(company);
+
+            var isExist = this.companyService.IsExist(company.Id, company.Mobile);
+            if (isExist)
+            {
+                return HttpStatusCode.PreconditionFailed;
+            }
+
             this.companyService.Update(company);
+            return HttpStatusCode.OK;
         }
 
         [HttpDelete]

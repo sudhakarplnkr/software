@@ -4,6 +4,7 @@ import { ConfigService } from '../utils/config.service';
 import { IUnit } from '../shared/interfaces';
 import { UnitDataService } from '../unit/unit.data.service';
 import { NotificationService } from '../utils/notification.service';
+import { Constants } from '../utils/constants';
 
 @Component({
   selector: 'unit-grid-view',
@@ -15,16 +16,16 @@ export class UnitComponent {
   units: IUnit[] = [];
   isAdd: boolean = false;
   isEdit: boolean = false;
-  constructor(public http: Http, public configService: ConfigService, private unitDataService: UnitDataService,
+  component: any;
+  constructor(public http: Http, public configService: ConfigService, public unitDataService: UnitDataService,
     private notificationService: NotificationService) {
     this.loadData();
   }
 
   AddUnit() {
     this.isAdd = true;
-    if (this.isAdd && !this.unit.Id) {
-      this.unit = {} as IUnit;
-    }
+    this.isEdit = false;
+    this.unit = {} as IUnit;
   }
 
   onSavedEvent() {
@@ -33,6 +34,7 @@ export class UnitComponent {
 
   onEdit(unit: IUnit) {
     this.isEdit = true;
+    this.isAdd = false;
     this.unit = Object.assign({}, unit);
   }
 
@@ -43,14 +45,21 @@ export class UnitComponent {
   }
 
   onDelete(unit: IUnit) {
-    this.unitDataService.deleteUnit(unit.Id)
-      .subscribe(() => {
-        this.loadData();
-        this.notificationService.printSuccessMessage('unit deleted successfully.');;
-      });
+    let component = this;
+    this.notificationService.openConfirmationDialog("Are you sure to delete this unit?", function () {
+      component.unitDataService.deleteUnit(unit.Id)
+        .subscribe(() => {
+          component.loadData();
+          component.notificationService.printSuccessMessage('unit'+ Constants.DELETE_SUCCESS_MESSAGE);
+        }, function () {
+          component.notificationService.printErrorMessage(Constants.DELETE_ERROR_MESSAGE + 'unit');
+        });
+    });
   }
 
   loadData() {
+    this.isEdit = false;
+    this.isAdd = false;
     this.unitDataService.getUnits()
       .subscribe((response) => {
         this.units = response;

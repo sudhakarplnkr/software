@@ -6,5 +6,6 @@
     public interface IUnitRepository : IGenericRepository<Unit>
     {
         Unit Get(long id);
+        bool IsExist(long id, string code);
     }
 }

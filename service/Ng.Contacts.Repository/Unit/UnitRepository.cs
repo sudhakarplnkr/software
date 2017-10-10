@@ -17,5 +17,11 @@
             var unit = FindBy(u => u.Id == id).FirstOrDefault();
             return unit;
         }
+
+        public bool IsExist(long id, string code)
+        {
+            var isExist = FindBy(u => u.Id !=id && u.Code == code).Any();
+            return isExist;
+        }
     }
 }

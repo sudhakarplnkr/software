@@ -37,6 +37,6 @@
       </table>
     </div>
   </div>
-  <input type="button" class="btn" value="Preview" (click)="hideGrid=true"/>
+  <input type="button" *ngIf="billDetails?.Id" class="btn" value="Preview" (click)="hideGrid=true"/>
 </div>
 <bill-view *ngIf="billDetails?.Id" [billInfo]="billDetails"></bill-view>

@@ -18,7 +18,7 @@
         [HttpGet]
         public IEnumerable<PurchaseOrder> Get()
         {
-            var purchaseOrders = this.purchaseOrderService.GetAll().Where(u => u.IsActive).ToList();
+            var purchaseOrders = this.purchaseOrderService.GetPurchaseOrders().Where(u => u.IsActive).ToList();
             return purchaseOrders;
         }
 

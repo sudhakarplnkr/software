@@ -5,6 +5,7 @@
     using Service.Unit;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net;
     using System.Web.Http;
     public class UnitController : ApiController
     {
@@ -33,10 +34,16 @@
         }
 
         [HttpPost]
-        public void Post(Unit unit)
+        public HttpStatusCode Post(Unit unit)
         {
             Guard.IsNotNull(unit);
+            var isExist = this.unitService.IsExist(unit.Id, unit.Code);
+            if (isExist)
+            {
+                return HttpStatusCode.PreconditionFailed;
+            }
             this.unitService.Create(unit);
+            return HttpStatusCode.OK;
         }
 
         [HttpPut]
@@ -104,7 +111,7 @@
                 {
                     this.unitService.Create(u);
                 });
-            }            
+            }
         }
     }
 }

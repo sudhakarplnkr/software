@@ -7,5 +7,6 @@
     {
         Unit Get(long id);
         void Delete(long id);
+        bool IsExist(long id, string description);
     }
 }

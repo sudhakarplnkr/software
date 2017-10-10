@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser'
 import { ICompany } from '../shared/interfaces';
 import { NotificationService } from '../utils/notification.service';
 import { CompanyDataService } from '../company/company.data.service';
+import { Constants } from '../utils/constants';
 
 @Component({
   selector: 'company-form-view',
@@ -18,14 +19,22 @@ export class CompanyFormComponent {
 
   onSave() {
     if (this.company.Id > 0) {
-      this.companyDataService.updateCompany(this.company).subscribe(() => {
-        this.notificationService.printSuccessMessage('company saved successful');
+      this.companyDataService.updateCompany(this.company).subscribe((status: number) => {
+        if (status === 412) {
+          this.notificationService.printErrorMessage('company' + Constants.ALREADY_EXIST_MESSAGE);
+          return;
+        }
+        this.notificationService.printSuccessMessage('company' + Constants.SAVE_SUCCESS_MESSAGE);
         this.onSavedEvent.emit(true);
       });
       return;
     }
-    this.companyDataService.createCompany(this.company).subscribe(() => {
-      this.notificationService.printSuccessMessage('company saved successful');
+    this.companyDataService.createCompany(this.company).subscribe((status: number) => {
+      if (status === 412) {
+        this.notificationService.printErrorMessage('company' + Constants.ALREADY_EXIST_MESSAGE);
+        return;
+      }
+      this.notificationService.printSuccessMessage('company' + Constants.SAVE_SUCCESS_MESSAGE);
       this.onSavedEvent.emit(true);
     });
   }

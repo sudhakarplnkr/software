@@ -34,22 +34,30 @@ export class PurchaseOrderFormComponent {
     this.loadUnits();
   }
 
-  loadProducts() {
+  private loadProducts() {
     this.productDataService.getProducts().subscribe((products: IProduct[]) => {
       this.products = products;
     });
   }
 
-  loadCompanies() {
+  private loadCompanies() {
     this.companyDataService.getCompanies().subscribe((companies: ICompany[]) => {
       this.companies = companies;
     });
   }
 
-  loadUnits() {
+  private loadUnits() {
     this.unitDataService.getUnits().subscribe((units: IUnit[]) => {
       this.units = units;
     });
+  }
+
+  calculateStock(): void {
+    if (this.oldOrder && this.oldOrder.CurrentStock) {
+      this.purchaseOrder.CurrentStock = parseFloat(this.purchaseOrder.OpeningStock.toString()) + this.oldOrder.CurrentStock;
+      return;
+    }
+    this.purchaseOrder.CurrentStock = this.purchaseOrder.OpeningStock;
   }
 
   onSave() {
@@ -64,7 +72,7 @@ export class PurchaseOrderFormComponent {
       return;
     }
     if (this.oldOrder) {
-      this.purchaseOrder.Id = this.oldOrder.Id;      
+      this.purchaseOrder.Id = this.oldOrder.Id;
     }
     this.purchaseOrderDataService.createPurchaseOrder(this.purchaseOrder).subscribe(() => {
       this.notificationService.printSuccessMessage('company saved successful');

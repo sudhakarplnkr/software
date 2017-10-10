@@ -36,7 +36,7 @@ export class CompanyDataService {
       .catch(this.notificationService.handleError);
   }
 
-  createCompany(unit: ICompany): Observable<ICompany> {
+  createCompany(unit: ICompany): Observable<number> {
     let options = this.helperService.buildHeaders(RequestMethod.Post);
 
     return this.http.post(this._baseUnitUrl, unit, options)
@@ -46,7 +46,7 @@ export class CompanyDataService {
       .catch(this.notificationService.handleError);
   }
 
-  updateCompany(unit: any): Observable<ICompany> {
+  updateCompany(unit: any): Observable<number> {
     let options = this.helperService.buildHeaders(RequestMethod.Put);
     return this.http.put(this._baseUnitUrl, unit, options)
       .map((res: Response) => {

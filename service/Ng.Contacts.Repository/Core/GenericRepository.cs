@@ -18,15 +18,14 @@
             _dbset = context.Set<T>();
         }
 
-        public virtual IEnumerable<T> GetAll()
+        public virtual IQueryable<T> GetAll()
         {
-            return _dbset.AsEnumerable<T>();
+            return _dbset.AsQueryable<T>();
         }
 
-        public IEnumerable<T> FindBy(Expression<Func<T, bool>> predicate)
+        public IQueryable<T> FindBy(Expression<Func<T, bool>> predicate)
         {
-
-            IEnumerable<T> query = _dbset.Where(predicate).AsEnumerable();
+            var query = _dbset.Where(predicate).AsQueryable();
             return query;
         }
 

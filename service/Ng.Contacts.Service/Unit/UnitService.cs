@@ -23,6 +23,12 @@
             return unit;
         }
 
+        public bool IsExist(long id, string code)
+        {
+            var isExist = this.unitRepository.IsExist(id, code);
+            return isExist;
+        }
+
         public void Delete(long id)
         {
             var unit = this.unitRepository.Get(id);

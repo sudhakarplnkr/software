@@ -4,6 +4,7 @@
     using Model.Entity;
     using Repository.PurchaseOrder;
     using Repository.UnitOfWork;
+    using System.Collections.Generic;
     using System.Linq;
 
     public class PurchaseOrderService : EntityService<PurchaseOrder>, IPurchaseOrderService
@@ -16,6 +17,12 @@
         {
             this.unitOfWork = unitOfWork;
             this.purchaseOrderRepository = purchaseOrderRepository;
+        }
+
+        public IList<PurchaseOrder> GetPurchaseOrders()
+        {
+            var purchaseOrderService = this.purchaseOrderRepository.GetPurchaseOrders();
+            return purchaseOrderService;
         }
 
         public PurchaseOrder Get(long id)

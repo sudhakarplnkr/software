@@ -2,6 +2,7 @@
 {
     using Core;
     using Model.Entity;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
 
@@ -16,6 +17,12 @@
         {
             var billInfo = FindBy(u => u.Id == id).FirstOrDefault();
             return billInfo;
+        }
+
+        public IList<BillInfo> GetBills()
+        {
+            var billInfos = GetAll().Include(u=>u.SalesOrders).ToList();
+            return billInfos;
         }
     }
 }

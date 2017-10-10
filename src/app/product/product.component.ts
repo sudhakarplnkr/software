@@ -5,6 +5,7 @@ import { ProductDataService } from '../product/product.data.service';
 import { NotificationService } from '../utils/notification.service';
 import { UnitDataService } from '../unit/unit.data.service';
 import { ProductFormComponent } from '../product/product.form';
+import { Constants } from '../utils/constants';
 
 @Component({
   selector: 'product-grid-view',
@@ -27,11 +28,10 @@ export class ProductComponent {
 
   AddProduct() {
     this.isAdd = true;
-    if (this.isAdd && !this.product.Id) {
-      this.product = {} as IProduct;
-      this.product.Code = new Date().getTime().toString();
-    }
+    this.product = {} as IProduct;
+    this.product.Code = new Date().getTime().toString();
   }
+
   onSavedEvent() {
     this.loadData();
     this.OnCancel();
@@ -57,11 +57,16 @@ export class ProductComponent {
   }
 
   onDelete(prodcuct: IProduct) {
-    this.productDataService.deleteProduct(prodcuct.Id)
+    let component = this;
+    this.notificationService.openConfirmationDialog("Are you sure to delete this product?", function () {
+      component.productDataService.deleteProduct(prodcuct.Id)
       .subscribe(() => {
-        this.loadData();
-        this.notificationService.printSuccessMessage('product deleted successfully');
+        component.loadData();
+        component.notificationService.printSuccessMessage('product' + Constants.DELETE_SUCCESS_MESSAGE);
+      }, function () {
+        component.notificationService.printErrorMessage(Constants.DELETE_ERROR_MESSAGE + 'product');
       });
+    });
   }
 
   onPageChange(currentPageNumber) {

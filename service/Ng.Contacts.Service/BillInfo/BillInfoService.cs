@@ -4,6 +4,7 @@
     using Model.Entity;
     using Repository.BillInfo;
     using Repository.UnitOfWork;
+    using System.Collections.Generic;
 
     public class BillInfoService : EntityService<BillInfo>, IBillInfoService
     {
@@ -15,6 +16,12 @@
         {
             this.unitOfWork = unitOfWork;
             this.billInfoRepository = billInfoRepository;
+        }
+
+        public IList<BillInfo> GetBills()
+        {
+            var billInfos = this.billInfoRepository.GetBills();
+            return billInfos;
         }
 
         public BillInfo Get(long id)

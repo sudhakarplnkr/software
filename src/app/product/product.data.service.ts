@@ -26,7 +26,7 @@ export class ProductDataService {
       .catch(this.notificationService.handleError);
   }
 
-  createProduct(product: IProduct): Observable<IProduct> {
+  createProduct(product: IProduct): Observable<number> {
     let options = this.helperService.buildHeaders(RequestMethod.Post);
 
     return this.http.post(this.productUrl, product, options)
@@ -36,7 +36,7 @@ export class ProductDataService {
       .catch(this.notificationService.handleError);
   }
 
-  updateProduct(product: IProduct): Observable<IProduct> {
+  updateProduct(product: IProduct): Observable<number> {
     let options = this.helperService.buildHeaders(RequestMethod.Put);
     return this.http.put(this.productUrl, product, options)
       .map((res: Response) => {

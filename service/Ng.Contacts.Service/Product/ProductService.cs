@@ -1,5 +1,7 @@
 ﻿namespace Ng.Contact.Service.Product
 {
+    using System;
+    using System.Collections.Generic;
     using EntityService;
     using Model.Entity;
     using Repository.Product;
@@ -17,10 +19,22 @@
             this.companyRepository = companyRepository;
         }
 
+        public IList<Product> GetProducts()
+        {
+            var products = this.companyRepository.GetProducts();
+            return products;
+        }
+
         public Product Get(long id)
         {
            var product = this.companyRepository.Get(id);
             return product;
+        }
+
+        public bool IsExist(string name)
+        {
+            var isExist = this.companyRepository.IsExist(name);
+            return isExist;
         }
 
         public void Delete(long id)

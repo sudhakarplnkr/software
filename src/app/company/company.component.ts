@@ -24,17 +24,20 @@ export class CompanyComponent {
 
   AddCompany() {
     this.isAdd = true;
-    if (this.isAdd && !this.company.Id) {
-      this.company = {} as ICompany;
-    }
+    this.isEdit = false;
+    this.company = {} as ICompany;
   }
 
   onSavedEvent() {
+    this.company = {} as ICompany;
+    this.isEdit = false;
+    this.isAdd = false;
     this.loadData();
   }
 
   onEdit(company: ICompany) {
     this.isEdit = true;
+    this.isAdd = false;
     this.company = Object.assign({}, company);
   }
 
@@ -45,11 +48,14 @@ export class CompanyComponent {
   }
 
   onDelete(company: ICompany) {
-    this.companyDataService.deleteCompany(company.Id)
-      .subscribe(() => {
-        this.loadData();
-        this.notificationService.printSuccessMessage('company deleted successfully.');
-      });
+    let component = this;
+    this.notificationService.openConfirmationDialog("Are you sure to delete this product?", function () {
+      component.companyDataService.deleteCompany(company.Id)
+        .subscribe(() => {
+          component.loadData();
+          component.notificationService.printSuccessMessage('company deleted successfully.');
+        });
+    });
   }
 
   loadData() {
